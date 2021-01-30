@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Куча дел куча дел</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<% for (var i = 0; i < tasks.length; i++) {%>
+<h1>Задача номер <%= i%></h1>
+<h1><%= tasks[i].title%></h1>
+<h1><%= tasks[i].date%></h1>
+<h1><%= tasks[i].description%></h1>
+<% }%>
+
+</body>
+<html>
