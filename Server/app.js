@@ -15,7 +15,7 @@ app.use('/static', express.static('public'));
 app.use('/static', express.static(__dirname + '/public'));
 
 
-app.get('/list', (req, res) => {
+app.get('/', (req, res) => {
     let file_content = fs.readFileSync('data/tasks.json', 'utf-8')
     let objs = JSON.parse(file_content)
     res.render('partials/task', {tasks: objs})
