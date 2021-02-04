@@ -15,20 +15,46 @@ app.use('/static', express.static('public'));
 app.use('/static', express.static(__dirname + '/public'));
 
 
-app.get('/add', (req, res) => {
-    let file_content = fs.readFileSync('data/tasks.json', 'utf-8')
-    let objs = JSON.parse(file_content)
-    // let task = {title: req.title, date: req.date, description: req.description}
-    let task = {"title": "req.title", "date": "req.date", "description": "req.description"}
-    objs.push(task)
-    fs.writeFileSync('data/tasks.json', JSON.stringify(objs), "utf-8")
-})
-
-
 app.get('/list', (req, res) => {
     let file_content = fs.readFileSync('data/tasks.json', 'utf-8')
     let objs = JSON.parse(file_content)
-    res.render('partials/task', { tasks: objs})
+    res.render('partials/task', {tasks: objs})
+})
+
+app.get('/add', (req, res) => {
+    let file_content = fs.readFileSync('data/tasks.json', 'utf-8')
+    let objs = JSON.parse(file_content)
+    var id = 1
+    if (objs.length !== 0) {
+        let obj = objs[objs.length - 1]
+        let objId = obj.id
+        id = objId + 1
+    }
+    let description = req.query.description
+    let task = {"id": id, "description": description.toString()}
+    objs.push(task)
+    fs.writeFileSync('data/tasks.json', JSON.stringify(objs), "utf-8")
+    res.render('partials/task', {tasks: objs})
+})
+
+app.get('/remove', (req, res) => {
+    let id = req.query.id
+    let file_content = fs.readFileSync('data/tasks.json', 'utf-8')
+    let objs = JSON.parse(file_content)
+    for (var key in objs) {
+        let obj = objs[key]
+        if (obj.id == id) {
+            objs.splice(key, 1)
+        }
+    }
+    fs.writeFileSync('data/tasks.json', JSON.stringify(objs), "utf-8")
+    res.render('partials/task', {tasks: objs})
+})
+
+app.get('/removeAll', (req, res) => {
+    let objs = [];
+    fs.writeFileSync('data/tasks.json', JSON.stringify(objs), "utf-8")
+    res.render('partials/task', {tasks: objs})
 })
 
 app.listen(port, () => {

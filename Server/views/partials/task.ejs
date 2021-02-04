@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/style.css"/>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>Куча дел куча дел</title>
-    <meta charset="utf-8"/>
 </head>
 <body>
+<div class="wrapper">
+    <header>Todo App</header>
+    <div class="inputField">
+        <input type="text" placeholder="Add your new todo">
+        <button onclick="add()"> <i class="fas fa-plus"></i></button>
+    </div>
+    <ul class="todoList">
+        <% for (var i = 0; i < tasks.length; i++) { %>
+        <li><%= tasks[i].description %>
+            <a href="/remove?id=<%= tasks[i].id %>" class="icon" >
+                <i class="fas fa-trash"></i>
+            </a>
+        </li>
+        <% } %>
+    </ul>
+    <div class="footer">
+        <span>You have <span class="pendingTasks"></span> pending tasks</span>
+        <a href="/removeAll">Clear All</a>
+    </div>
+</div>
 
-<% for (var i = 0; i < tasks.length; i++) {%>
-<h1>Задача номер <%= i%></h1>
-<h1><%= tasks[i].title%></h1>
-<h1><%= tasks[i].date%></h1>
-<h1><%= tasks[i].description%></h1>
-<% }%>
+ <script src="script/script.js"></script>
 
 </body>
-<html>
+</html>
